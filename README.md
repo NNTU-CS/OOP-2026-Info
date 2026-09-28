@@ -1,18 +1,18 @@
-# OOP-2025 (Информация по курсовой работе)
+# OOP-2026 (Информация по курсовой работе)
 
 ## Курсовая работа по ООП
 
-<img src="https://img.shields.io/github/commit-activity/m/nntu-cs/OOP-2024?color=lime&style=for-the-badge">
-<img src="https://img.shields.io/github/last-commit/nntu-cs/OOP-2024?color=darkgreen&style=for-the-badge">
+<img src="https://img.shields.io/github/commit-activity/m/nntu-cs/OOP-2026-Info?color=lime&style=for-the-badge">
+<img src="https://img.shields.io/github/last-commit/nntu-cs/OOP-2026-Info?color=darkgreen&style=for-the-badge">
 
 ### Основные даты
 
-- 20 октября: выбор темы
-- 30 ноября: написание работы
-- 10 декабря: оформление ПЗ
-- **до 15 декабря**: представление ПЗ (макс. оценка 5)
-- **15 - 31 декабря**: представление ПЗ (макс. оценка 4)
-- после НГ: представление ПЗ (макс. оценка 3)
+- до 10 октября: выбор темы
+- до 20 ноября: написание работы
+- до 10 декабря: оформление ПЗ
+- **до 10 декабря**: представление ПЗ (макс. оценка 5)
+- **10 - 25 декабря**: представление ПЗ (макс. оценка 4)
+- после 25: представление ПЗ (макс. оценка 3)
 
 ### Структура работы
 
