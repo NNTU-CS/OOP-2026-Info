@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище RunningClubDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GroupTypeTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsMain" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunnerTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateIn" Type="datetime" Nullable="false" />
+          <Property Name="Field1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field3" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field4" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field5" Type="nvarchar" MaxLength="255" />
+          <Property Name="IDGroup" Type="int" />
+          <Property Name="IDGroupType" Type="int" />
+          <Property Name="CoachName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TrainingGroupTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDGroupType" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CoachName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TrainingTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTrainingGroup" Type="int" Nullable="false" />
+          <Property Name="IDTrainingType" Type="int" Nullable="false" />
+          <Property Name="BeginDt" Type="datetime" Nullable="false" />
+          <Property Name="EndDt" Type="datetime" Nullable="false" />
+          <Property Name="DataInfo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Descr" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TrainingTypeTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__TrainingG__IDGro__6383C8BA">
+          <End Role="GroupTypeTable" Type="Self.GroupTypeTable" Multiplicity="1" />
+          <End Role="TrainingGroupTable" Type="Self.TrainingGroupTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupTypeTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingGroupTable">
+              <PropertyRef Name="IDGroupType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TrainingT__IDTra__66603565">
+          <End Role="TrainingGroupTable" Type="Self.TrainingGroupTable" Multiplicity="1" />
+          <End Role="TrainingTable" Type="Self.TrainingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroupTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingTable">
+              <PropertyRef Name="IDTrainingGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TrainingT__IDTra__6754599E">
+          <End Role="TrainingTypeTable" Type="Self.TrainingTypeTable" Multiplicity="1" />
+          <End Role="TrainingTable" Type="Self.TrainingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingTypeTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingTable">
+              <PropertyRef Name="IDTrainingType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Runner_ToGroup">
+          <End Role="TrainingGroupTable" Type="Self.TrainingGroupTable" Multiplicity="0..1" />
+          <End Role="RunnerTable" Type="Self.RunnerTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroupTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunnerTable">
+              <PropertyRef Name="IDGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Runner_ToGroupType">
+          <End Role="GroupTypeTable" Type="Self.GroupTypeTable" Multiplicity="0..1" />
+          <End Role="RunnerTable" Type="Self.RunnerTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupTypeTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunnerTable">
+              <PropertyRef Name="IDGroupType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RunningClubDBModelContainer">
+          <EntitySet Name="GroupTypeTable" EntityType="Self.GroupTypeTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RunnerTable" EntityType="Self.RunnerTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingGroupTable" EntityType="Self.TrainingGroupTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingTable" EntityType="Self.TrainingTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingTypeTable" EntityType="Self.TrainingTypeTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TrainingG__IDGro__6383C8BA" Association="Self.FK__TrainingG__IDGro__6383C8BA">
+            <End Role="GroupTypeTable" EntitySet="GroupTypeTable" />
+            <End Role="TrainingGroupTable" EntitySet="TrainingGroupTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TrainingT__IDTra__66603565" Association="Self.FK__TrainingT__IDTra__66603565">
+            <End Role="TrainingGroupTable" EntitySet="TrainingGroupTable" />
+            <End Role="TrainingTable" EntitySet="TrainingTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TrainingT__IDTra__6754599E" Association="Self.FK__TrainingT__IDTra__6754599E">
+            <End Role="TrainingTypeTable" EntitySet="TrainingTypeTable" />
+            <End Role="TrainingTable" EntitySet="TrainingTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Runner_ToGroup" Association="Self.FK_Runner_ToGroup">
+            <End Role="TrainingGroupTable" EntitySet="TrainingGroupTable" />
+            <End Role="RunnerTable" EntitySet="RunnerTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Runner_ToGroupType" Association="Self.FK_Runner_ToGroupType">
+            <End Role="GroupTypeTable" EntitySet="GroupTypeTable" />
+            <End Role="RunnerTable" EntitySet="RunnerTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RunningClubDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GroupTypeTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsMain" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TrainingGroupTable" Relationship="Self.FK__TrainingG__IDGro__6383C8BA" FromRole="GroupTypeTable" ToRole="TrainingGroupTable" />
+          <NavigationProperty Name="RunnerTable" Relationship="Self.FK_Runner_ToGroupType" FromRole="GroupTypeTable" ToRole="RunnerTable" />
+        </EntityType>
+        <EntityType Name="RunnerTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateIn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Field1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IDGroup" Type="Int32" />
+          <Property Name="IDGroupType" Type="Int32" />
+          <Property Name="CoachName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GroupTypeTable" Relationship="Self.FK_Runner_ToGroupType" FromRole="RunnerTable" ToRole="GroupTypeTable" />
+          <NavigationProperty Name="TrainingGroupTable" Relationship="Self.FK_Runner_ToGroup" FromRole="RunnerTable" ToRole="TrainingGroupTable" />
+        </EntityType>
+        <EntityType Name="TrainingGroupTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDGroupType" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CoachName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GroupTypeTable" Relationship="Self.FK__TrainingG__IDGro__6383C8BA" FromRole="TrainingGroupTable" ToRole="GroupTypeTable" />
+          <NavigationProperty Name="RunnerTable" Relationship="Self.FK_Runner_ToGroup" FromRole="TrainingGroupTable" ToRole="RunnerTable" />
+          <NavigationProperty Name="TrainingTable" Relationship="Self.FK__TrainingT__IDTra__66603565" FromRole="TrainingGroupTable" ToRole="TrainingTable" />
+        </EntityType>
+        <EntityType Name="TrainingTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTrainingGroup" Type="Int32" Nullable="false" />
+          <Property Name="IDTrainingType" Type="Int32" Nullable="false" />
+          <Property Name="BeginDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Descr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrainingGroupTable" Relationship="Self.FK__TrainingT__IDTra__66603565" FromRole="TrainingTable" ToRole="TrainingGroupTable" />
+          <NavigationProperty Name="TrainingTypeTable" Relationship="Self.FK__TrainingT__IDTra__6754599E" FromRole="TrainingTable" ToRole="TrainingTypeTable" />
+        </EntityType>
+        <EntityType Name="TrainingTypeTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrainingTable" Relationship="Self.FK__TrainingT__IDTra__6754599E" FromRole="TrainingTypeTable" ToRole="TrainingTable" />
+        </EntityType>
+        <Association Name="FK__TrainingG__IDGro__6383C8BA">
+          <End Role="GroupTypeTable" Type="Self.GroupTypeTable" Multiplicity="1" />
+          <End Role="TrainingGroupTable" Type="Self.TrainingGroupTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupTypeTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingGroupTable">
+              <PropertyRef Name="IDGroupType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Runner_ToGroupType">
+          <End Role="GroupTypeTable" Type="Self.GroupTypeTable" Multiplicity="0..1" />
+          <End Role="RunnerTable" Type="Self.RunnerTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupTypeTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunnerTable">
+              <PropertyRef Name="IDGroupType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Runner_ToGroup">
+          <End Role="TrainingGroupTable" Type="Self.TrainingGroupTable" Multiplicity="0..1" />
+          <End Role="RunnerTable" Type="Self.RunnerTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroupTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunnerTable">
+              <PropertyRef Name="IDGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TrainingT__IDTra__66603565">
+          <End Role="TrainingGroupTable" Type="Self.TrainingGroupTable" Multiplicity="1" />
+          <End Role="TrainingTable" Type="Self.TrainingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroupTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingTable">
+              <PropertyRef Name="IDTrainingGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TrainingT__IDTra__6754599E">
+          <End Role="TrainingTypeTable" Type="Self.TrainingTypeTable" Multiplicity="1" />
+          <End Role="TrainingTable" Type="Self.TrainingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingTypeTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingTable">
+              <PropertyRef Name="IDTrainingType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RunningClubDBEntities111" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GroupTypeTable" EntityType="Self.GroupTypeTable" />
+          <EntitySet Name="RunnerTable" EntityType="Self.RunnerTable" />
+          <EntitySet Name="TrainingGroupTable" EntityType="Self.TrainingGroupTable" />
+          <EntitySet Name="TrainingTable" EntityType="Self.TrainingTable" />
+          <EntitySet Name="TrainingTypeTable" EntityType="Self.TrainingTypeTable" />
+          <AssociationSet Name="FK__TrainingG__IDGro__6383C8BA" Association="Self.FK__TrainingG__IDGro__6383C8BA">
+            <End Role="GroupTypeTable" EntitySet="GroupTypeTable" />
+            <End Role="TrainingGroupTable" EntitySet="TrainingGroupTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Runner_ToGroupType" Association="Self.FK_Runner_ToGroupType">
+            <End Role="GroupTypeTable" EntitySet="GroupTypeTable" />
+            <End Role="RunnerTable" EntitySet="RunnerTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Runner_ToGroup" Association="Self.FK_Runner_ToGroup">
+            <End Role="TrainingGroupTable" EntitySet="TrainingGroupTable" />
+            <End Role="RunnerTable" EntitySet="RunnerTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TrainingT__IDTra__66603565" Association="Self.FK__TrainingT__IDTra__66603565">
+            <End Role="TrainingGroupTable" EntitySet="TrainingGroupTable" />
+            <End Role="TrainingTable" EntitySet="TrainingTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TrainingT__IDTra__6754599E" Association="Self.FK__TrainingT__IDTra__6754599E">
+            <End Role="TrainingTypeTable" EntitySet="TrainingTypeTable" />
+            <End Role="TrainingTable" EntitySet="TrainingTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RunningClubDBModelContainer" CdmEntityContainer="RunningClubDBEntities111">
+          <EntitySetMapping Name="GroupTypeTable">
+            <EntityTypeMapping TypeName="RunningClubDBModel.GroupTypeTable">
+              <MappingFragment StoreEntitySet="GroupTypeTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RunnerTable">
+            <EntityTypeMapping TypeName="RunningClubDBModel.RunnerTable">
+              <MappingFragment StoreEntitySet="RunnerTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="DateIn" ColumnName="DateIn" />
+                <ScalarProperty Name="Field1" ColumnName="Field1" />
+                <ScalarProperty Name="Field2" ColumnName="Field2" />
+                <ScalarProperty Name="Field3" ColumnName="Field3" />
+                <ScalarProperty Name="Field4" ColumnName="Field4" />
+                <ScalarProperty Name="Field5" ColumnName="Field5" />
+                <ScalarProperty Name="IDGroup" ColumnName="IDGroup" />
+                <ScalarProperty Name="IDGroupType" ColumnName="IDGroupType" />
+                <ScalarProperty Name="CoachName" ColumnName="CoachName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingGroupTable">
+            <EntityTypeMapping TypeName="RunningClubDBModel.TrainingGroupTable">
+              <MappingFragment StoreEntitySet="TrainingGroupTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IDGroupType" ColumnName="IDGroupType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CoachName" ColumnName="CoachName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingTable">
+            <EntityTypeMapping TypeName="RunningClubDBModel.TrainingTable">
+              <MappingFragment StoreEntitySet="TrainingTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IDTrainingGroup" ColumnName="IDTrainingGroup" />
+                <ScalarProperty Name="IDTrainingType" ColumnName="IDTrainingType" />
+                <ScalarProperty Name="BeginDt" ColumnName="BeginDt" />
+                <ScalarProperty Name="EndDt" ColumnName="EndDt" />
+                <ScalarProperty Name="DataInfo" ColumnName="DataInfo" />
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingTypeTable">
+            <EntityTypeMapping TypeName="RunningClubDBModel.TrainingTypeTable">
+              <MappingFragment StoreEntitySet="TrainingTypeTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

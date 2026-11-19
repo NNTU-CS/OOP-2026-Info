@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12217.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{75E3E5AB-2DEB-4143-8B87-498F54540A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunningClubApp", "RunningClubApp\RunningClubApp.csproj", "{EB49BC02-08DE-4705-8B9A-8C9AD237F98D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75E3E5AB-2DEB-4143-8B87-498F54540A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E3E5AB-2DEB-4143-8B87-498F54540A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E3E5AB-2DEB-4143-8B87-498F54540A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E3E5AB-2DEB-4143-8B87-498F54540A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB49BC02-08DE-4705-8B9A-8C9AD237F98D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB49BC02-08DE-4705-8B9A-8C9AD237F98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB49BC02-08DE-4705-8B9A-8C9AD237F98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB49BC02-08DE-4705-8B9A-8C9AD237F98D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8F51301-1695-4D48-B26F-31B9C67B7DE5}
+	EndGlobalSection
+EndGlobal
